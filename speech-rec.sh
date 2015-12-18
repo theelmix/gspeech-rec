@@ -3,7 +3,7 @@
 # Usage info
 show_help() {
 cat << EOF
-  Usage: ${0##*/} [-hv] [-i INFILE] [-d DURATION] [-r RATE] [-l LANGUAGE] [-k KEY]
+  Usage: ${0##*/} [-h] [-i INFILE] [-d DURATION] [-r RATE] [-l LANGUAGE] [-k KEY]
   
   Record an utterance and send audio data to Google for speech recognition.
   
@@ -23,6 +23,21 @@ DURATION=3
 LANGUAGE=en-US
 # Please replace this wih your own key
 KEY=AIzaSyAcalCzUvPmmJ7CZBFOEWx2Z1ZSn4Vs1gg
+
+
+record() {
+    DURATION=$1
+    SRATE=$2
+    INFILE=$3
+    
+    if hash rec 2>/dev/null; then
+    # try to record audio with sox 
+        rec -q -c 1 -r $SRATE $INFILE trim 0 $DURATION
+    else
+    # fallback to parecord
+        timeout $DURATION parecord $INFILE --file-format=flac --rate=$SRATE --channels=1
+    fi
+}
  
 # parse parameters
 while [[ $# -ge 1 ]]
@@ -82,7 +97,7 @@ if [[ ! "$INFILE" ]]
       fi
       echo "Say something..."
       echo ""
-      timeout $DURATION parecord $INFILE --file-format=flac --rate=$SRATE
+      record $DURATION $SRATE $INFILE
  
 else
       if  [[ ! "$SRATE" ]]
