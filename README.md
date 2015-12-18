@@ -6,6 +6,8 @@
 
 More interestingly, if you have **parecord** and **timeout** installed on your machine, you can use the script interactively to record and utterance and get its transcription.
 
+For more information about Google's ASR service check out this article: https://aminesehili.wordpress.com/2015/02/08/on-the-use-of-googles-speech-recognition-api-version-2/
+
 # Some examples
 
 ### Recognize speech in audio file
