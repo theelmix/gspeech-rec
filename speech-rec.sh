@@ -7,12 +7,12 @@ cat << EOF
   
   Record an utterance and send audio data to Google for speech recognition.
   
-       -h|--help               display this help and exit
-       -i|--input     INFILE   use INFILE instead of recording a stream with parecord.
+       -h|--help               display this help and exit.
+       -i|--input     INFILE   use INFILE instead of recording a stream with sox or parecord.
        -d|--duration  FLOAT    recoding duration in seconds (Default: 3).
        -l|--language  STRING   set transcription language (Default: en_US).
-                               Other languages: fr-FR, de-DE, es-ES, ...
-       -r|--rate      INTEGER  Sampling rate of recorded data (Default: 16000).
+                               Other languages: fr_FR, de_DE, es_ES, ...
+       -r|--rate      INTEGER  Sampling rate of audio data (Default: 16000, if data is to be recorded).
                                If -i|--input is used, the sampling rate must be supplied by the user.
        -k|--key       STRING   Google Speech Recognition Key.
                   
@@ -20,8 +20,8 @@ EOF
 }
  
 DURATION=3
-LANGUAGE=en-US
-# Please replace this wih your own key
+LANGUAGE=en_US
+# Please replace this with your own key
 KEY=AIzaSyAcalCzUvPmmJ7CZBFOEWx2Z1ZSn4Vs1gg
 
 
@@ -90,7 +90,7 @@ fi
  
 if [[ ! "$INFILE" ]]
    then
-      INFILE=record.flac
+      INFILE=record_`date "+%Y%b%d_%H-%M-%S"`.flac
       if  [[ ! "$SRATE" ]]
          then
             SRATE=16000
@@ -110,7 +110,7 @@ else
       echo ""
 fi
  
-RESULT=`wget -q --post-file $INFILE --header="Content-Type: audio/x-flac; rate=$SRATE" -O - "http://www.google.com/speech-api/v2/recognize?client=chromium&lang=$LANGUAGE&key=$KEY"`
+RESULT=`wget -q --post-file $INFILE --header="Content-Type: audio/x-flac; rate=$SRATE" -O - "https://www.google.com/speech-api/v2/recognize?client=chromium&lang=$LANGUAGE&key=$KEY"`
  
 FILTERED=`echo "$RESULT" | grep "transcript.*}" | sed 's/,/\n/g;s/[{,},"]//g;s/\[//g;s/\]//g;s/:/: /g' | grep -o -i -e "transcript.*" -e "confidence:.*"`
  
