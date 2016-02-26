@@ -6,7 +6,7 @@
 
 More interestingly, if you have `sox` (or `parecord` and `timeout`) installed on your machine, you can use the script to interactively record and utterance and get its transcription.
 
-To install sox tyep:
+To install sox type:
 
     sudo apt-get install sox
 
@@ -77,7 +77,7 @@ to send data to server.
 [this repository](https://github.com/Uberi/speech_recognition/) offers a Python ASR API for many vendors.
 
 # Author
-amsehili <amine.sehili@gmail.com> (Amine SEHILI)
+Amine SEHILI (<amine.sehili@gmail.com>)
 
 # License
 Copyright (C) Amine SEHILI 2015-2016.
