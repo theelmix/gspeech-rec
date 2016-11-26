@@ -11,7 +11,7 @@ cat << EOF
        -i|--input     INFILE   use INFILE instead of recording a stream with sox or parecord.
        -d|--duration  FLOAT    recoding duration in seconds (Default: 3).
        -l|--language  STRING   set transcription language (Default: en_US).
-                               Other languages: fr_FR, de_DE, es_ES, ...
+                               For spanish language: es_ES 
        -r|--rate      INTEGER  Sampling rate of audio data (Default: 16000, if data is to be recorded).
                                If -i|--input is used, the sampling rate must be supplied by the user.
        -k|--key       STRING   Google Speech Recognition Key.
@@ -22,7 +22,7 @@ EOF
 DURATION=3
 LANGUAGE=en_US
 # Please replace this with your own key
-KEY=AIzaSyAcalCzUvPmmJ7CZBFOEWx2Z1ZSn4Vs1gg
+KEY=AIzaSyBy8UMpRFoA3bs0IjCx_lR_akxlbzxJRMM
 
 
 record() {
